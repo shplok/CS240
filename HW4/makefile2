@@ -1,0 +1,20 @@
+CC = gcc
+CFLAGS = -m32
+
+all: calcit
+
+calcit: main.o getch.o getop.o stack.o
+
+main.o: main.c calc.h
+
+
+getch.o: getch.c calc.h
+
+
+getop.o: getop.c calc.h
+
+stack.o: stack.c calc.h
+
+
+clean:
+

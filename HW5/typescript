@@ -1,0 +1,179 @@
+Script started on 2023-12-14 16:55:35-05:00 [TERM="xterm" TTY="/dev/pts/1" COLUMNS="145" LINES="34"]
+soyr@pe15:~/cs240/HW5$ ls -l
+total 56
+-rw-r--r-- 1 soyr cs240-2G  1905 Dec 14 16:53 lineholder.c
+-rw-r--r-- 1 soyr cs240-2G   157 Dec 14 16:46 lineholder.h
+-rw-r--r-- 1 soyr cs240-2G  2948 Dec 14 16:53 lineholder.o
+-rw-r--r-- 1 soyr cs240-2G   228 Dec 14 13:23 makefile
+-rwxr-xr-x 1 soyr cs240-2G 16180 Dec 14 16:53 tail
+-rw-r--r-- 1 soyr cs240-2G     0 Nov 26 21:51 tail0.in
+-rw-r--r-- 1 soyr cs240-2G   145 Nov 26 22:06 tail1.in
+-rw-r--r-- 1 soyr cs240-2G   198 Dec 14 12:59 tail2.in
+-rw-r--r-- 1 soyr cs240-2G   219 Dec 14 16:44 tail3.in
+-rw-r--r-- 1 soyr cs240-2G   447 Jan 30  2018 tail4.in
+-rw-r--r-- 1 soyr cs240-2G   950 Dec 14 16:47 tail.c
+-rw-r--r-- 1 soyr cs240-2G  2200 Dec 14 16:47 tail.o
+-rw-r--r-- 1 soyr cs240-2G     0 Dec 14 16:55 typescript
+soyr@pe15:~/cs240/HW5$ cat lineholder.c
+/*
+Sawyer Bowerman
+11/26/2023
+lineholder.c
+contains a static array of pointers for lines.
+ Implements init_lineholder, insert_line, and print_lines.
+ Init_lineholder initializes the "first" slot and related variables.
+ Insert_line adds a line to the array.
+It must allocate memory for the new line.
+It must free the memory for a line no longer needed, if any.
+ Print_lines prints the lines in the array and frees the memory used for them
+*/
+
+
+// lineholder.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "lineholder.h"
+
+#define MAX_LINES 2000
+#define MAX_LENGTH 1001
+
+static char *lines[MAX_LINES];
+static int current_line = 0;
+static int total_lines = 0;
+
+void init_lineholder(int nlines) {
+    for (int i = 0; i < MAX_LINES; ++i) {
+        lines[i] = NULL;
+    }
+    current_line = 0;
+    total_lines = 0;
+}
+
+void insert_line(char *line) {
+    if (lines[current_line] != NULL) {
+        free(lines[current_line]);
+    }
+
+    lines[current_line] = strdup(line);
+
+    current_line = (current_line + 1) % MAX_LINES;
+    total_lines++;
+}
+
+void print_lines(int n) {
+    int start = (current_line - total_lines + MAX_LINES) % MAX_LINES;
+
+    // Ensure n is not greater than the total number of lines
+    if (n > total_lines) {
+        n = total_lines;
+    }
+
+    // Create an array to store the last n lines
+    char **lastNLines = malloc(n * sizeof(char *));
+    if (lastNLines == NULL) {
+        fprintf(stderr, "Memory allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Copy the last n lines into the array
+    for (int i = total_lines - n; i < total_lines; ++i) {
+        int index = (start + i) % MAX_LINES;
+        lastNLines[i - (total_lines - n)] = strdup(lines[index]);
+    }
+
+    // Print the last n lines in their original order
+    for (int i = 0; i < n; ++i) {
+        printf("%s", lastNLines[i]);
+        free(lastNLines[i]);
+    }
+
+    free(lastNLines);
+}
+
+soyr@pe15:~/cs240/HW5$ cat tail.c
+/*
+ * Sawyer Bowerman
+ * 11/26/2023
+ * tail.c
+ * Calls init_lineholder(int nlines) with the number from the command line.
+ * Does a loop calling getline and insert_line(char *line).
+ * When getline returns 0 (indicating EOF on stdin), it calls print_lines().
+ */
+
+
+
+// tail.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "lineholder.h"
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <number_of_lines>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    int nlines = atoi(argv[1]);
+    if (nlines <= 0 || nlines >= 2000) {
+        fprintf(stderr, "Number of lines should be between 1 and 1999\n");
+        exit(EXIT_FAILURE);
+    }
+
+    init_lineholder(nlines);
+
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &len, stdin)) != -1) {
+        insert_line(line);
+    }
+
+    if (line) {
+        free(line);
+    }
+
+    print_lines(nlines);
+
+    return 0;
+}
+soyr@pe15:~/cs240/HW5$ cat maek[K[Kkefile
+CC = gcc
+CFLAGS = -m32
+
+all: tail
+
+tail: tail.o lineholder.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+tail.o: tail.c lineholder.h
+	$(CC) $(CFLAGS) -c $<
+
+lineholder.o: lineholder.c lineholder.h
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f *.o tail
+
+soyr@pe15:~/cs240/HW5$ make
+make: Nothing to be done for 'all'.
+soyr@pe15:~/cs240/HW5$ make cla[Kean
+rm -f *.o tail
+soyr@pe15:~/cs240/HW5$ make
+gcc -m32 -c tail.c
+gcc -m32 -c lineholder.c
+gcc -m32 tail.o lineholder.o -o tail
+soyr@pe15:~/cs240/HW5$ ./tra[K[Kail 10 <1[Ktai;[Kl0.in> tail0.out
+soyr@pe15:~/cs240/HW5$ ./tail 10 <tail0.in> tail0.out[1P[1@1[C[C[C[C[C[C[C[C[C[1P.out1.out
+soyr@pe15:~/cs240/HW5$ ./tail 10 <tail1.in> tail1.out[2@^[[3@[3~[1P[1P[1P[2P[1P[1P[1@;[1P[1@l[1@2[C[C[C[C[C[C[C[C[C[1P.out2.out
+soyr@pe15:~/cs240/HW5$ ./ta[K[Ktail 10 <tail2.in> tail2.out[C[C[C[1P[1@3[1@~[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[1P.out3.out
+soyr@pe15:~/cs240/HW5$ ./tail 10 <tail3.in> tail3.out[1P.out4.out[1P[1@4
+soyr@pe15:~/cs240/HW5$ echo thank ou[K[Kyou!
+thank you!
+soyr@pe15:~/cs240/HW5$ ex[Kxit
+exit
+
+Script done on 2023-12-14 16:57:19-05:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,122 @@
+Script started on 2023-10-03 15:39:28-04:00 [TERM="xterm" TTY="/dev/pts/2" COLUMNS="145" LINES="34"]
+soyr@pe15:~/cs240/HW2$ ls -l
+total 140
+-rwxr-xr-x 1 soyr cs240-2G 16840 Oct  3 15:14 hist
+-rw-r--r-- 1 soyr cs240-2G  2216 Oct  3 15:31 hist.c
+-rwxr-xr-x 1 soyr cs240-2G 16824 Oct  3 11:57 reverse
+-rw-r--r-- 1 soyr cs240-2G  1216 Oct  3 11:56 reverse.c
+-rw-r--r-- 1 soyr cs240-2G   268 Oct  1 16:36 reverse.in
+-rw-r--r-- 1 soyr cs240-2G   268 Oct  1 17:01 reverse.out
+-rwxr-xr-x 1 soyr cs240-2G 16824 Sep 28 17:30 trim
+-rw-r--r-- 1 soyr cs240-2G  1246 Oct  3 11:06 trim.c
+-rw-r--r-- 1 soyr cs240-2G    94 Oct  3 15:29 trim.in
+-rw-r--r-- 1 soyr cs240-2G    74 Sep 28 17:30 trim.out
+-rw-r--r-- 1 soyr cs240-2G     0 Oct  3 15:39 typescript
+-rwxr-xr-x 1 soyr cs240-2G 16752 Oct  3 11:27 visitype
+-rw-r--r-- 1 soyr cs240-2G  1530 Oct  3 11:59 visitype.c
+-rwxr-xr-x 1 soyr cs240-2G 16792 Oct  3 13:09 vt
+-rw-r--r-- 1 soyr cs240-2G  1843 Oct  3 13:09 vt.c
+-rw-r--r-- 1 soyr cs240-2G    12 Oct  3 15:28 vt.in
+soyr@pe15:~/cs240/HW2$ ./trim tr[K[K< trim.in >?[K trim.out
+soyr@pe15:~/cs240/HW2$ of.[K[Kd- [K[K -x tro[Kim.in
+0000000 0909 6f4e 2077 7369 7420 6568 2020 2020
+0000020 2020 0a20 0909 6954 656d 6620 726f 0909
+0000040 090a 6109 6c6c 6720 6f6f 2064 656d 206e
+0000060 6f74 2020 2020 090a 6309 6d6f 2065 6f74
+0000100 7420 6568 6120 6469 6f20 2066 6874 2065
+0000120 6170 7472 2e79 2020 2020 2020 0a0a
+0000136
+soyr@pe15:~/cs240/HW2$ od -x trom[K[Kim.out
+0000000 0909 6f4e 2077 7369 7420 6568 090a 5409
+0000020 6d69 2065 6f66 0a72 0909 6c61 206c 6f67
+0000040 646f 6d20 6e65 7420 0a6f 0909 6f63 656d
+0000060 7420 206f 6874 2065 6961 2064 666f 7420
+0000100 6568 7020 7261 7974 0a2e
+0000112
+soyr@pe15:~/cs240/HW2$ ./ rever[K[K[K[K[K[Kreverse < reverse,[K.n[Kin > reverse.out
+soyr@pe15:~/cs240/HW2$ cat reverse.in
+Have you heard of palindromes?
+
+In the garden of Eden, on meeting:
+
+"Madam, I'm Adam."
+
+Napoleon on his capability after his first defeat:
+
+"Able was I ere I saw Elba."
+
+And of course, on diet:
+
+"Doc, note: I dissent! A fast never prevents a fatness. I diet on cod."
+
+soyr@pe15:~/cs240/HW2$ cat reverse.out
+?semordnilap fo draeh uoy evaH
+
+:gniteem no ,nedE fo nedrag eht nI
+
+".madA m'I ,madaM"
+
+:taefed tsrif sih retfa ytilibapac sih no noelopaN
+
+".ablE was I ere I saw elbA"
+
+:teid no ,esruoc fo dnA
+
+".doc no teid I .ssentaf a stneverp reven tsaf A !tnessid I :eton ,coD"
+
+soyr@pe15:~/cs240/HW2$ ./vt <vt.in [K[K[K[K[K[K vt.in > vt.out
+soyr@pe15:~/cs240/HW2$ od-[K -x vt.in
+0000000 0201 7e7d 2c61 7a62 7f5c 0a5a
+0000014
+soyr@pe15:~/cs240/HW2$ od - [Kc[Kx vt.out
+0000000 2031 3130 0a20 3220 3020 2032 200a 3231
+0000020 2035 6437 0a20 3120 3632 3720 2065 200a
+0000040 3739 3620 2031 200a 3434 3220 2063 200a
+0000060 3839 3620 2032 200a 3231 2032 6137 0a20
+0000100 3920 2032 6335 0a20 3120 3732 3720 2066
+0000120 200a 3039 3520 2061 200a
+0000132
+soyr@pe15:~/cs240/HW2$ ./hist <tri[K[K[K trim.in
+DEC HEX ASCII_NAME	COUNT 
+9   9   HT	 	  10
+10   a   NL	 	  5
+32  20   SP	 	  29
+46  2e    .	 	  1
+78  4e    N	 	  1
+84  54    T	 	  1
+97  61    a	 	  3
+99  63    c	 	  1
+100  64    d	 	  2
+101  65    e	 	  6
+102  66    f	 	  2
+103  67    g	 	  1
+104  68    h	 	  3
+105  69    i	 	  3
+108  6c    l	 	  2
+109  6d    m	 	  3
+110  6e    n	 	  1
+111  6f    o	 	  8
+112  70    p	 	  1
+114  72    r	 	  2
+115  73    s	 	  1
+116  74    t	 	  6
+119  77    w	 	  1
+121  79    y	 	  1
+soyr@pe15:~/cs240/HW2$ hist[K[K[K[K./hist < vt.in
+DEC HEX ASCII_NAME	COUNT 
+1   1  SOH	 	  1
+2   2  STX	 	  1
+10   a   NL	 	  1
+44  2c    ,	 	  1
+90  5a    Z	 	  1
+92  5c    \	 	  1
+97  61    a	 	  1
+98  62    b	 	  1
+122  7a    z	 	  1
+125  7d    }	 	  1
+126  7e    ~	 	  1
+127  7f  DEL	 	  1
+soyr@pe15:~/cs240/HW2$ s[Keci[K[Kxit
+exit
+
+Script done on 2023-10-03 15:42:21-04:00 [COMMAND_EXIT_CODE="0"]

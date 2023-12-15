@@ -1,0 +1,279 @@
+Script started on 2023-10-19 20:30:55-04:00 [TERM="xterm" TTY="/dev/pts/144" COLUMNS="145" LINES="34"]
+soyr@pe15:~/cs240/HW3$ ls
+showxbits.c  showxbits.o  typescript  xbits  xbits.c  xbitsDebug  xbits.h  xbits.o
+soyr@pe15:~/cs240/HW3$ cat xbits.c
+/*
+Sawyer Bowerman
+10/19/2023
+xbits.c
+Depending on the function, this program either takes an integer or hexstring as input and returns the calculated inverse.
+*/
+
+
+
+#include <stdio.h>
+#include "xbits.h"
+
+
+
+/* Itox Pseudocode
+
+	if n is less than 0, leave and claim the input is invalid.
+
+	set the index to the size of an int + 1 to make space for the null terminator
+	if n is equal to zero, we can make a special case to just print zero
+	otherwise,
+		while the index is greater than 0
+			calculate and then return the hexstring value of the given int.
+*/
+
+
+
+
+/* Function represents the int n as a hexstring which it places in the hexstring array */
+void itox(char hexstring[], int n) {
+    
+
+	if (n < 0){
+                printf("invalid input\n");
+                return;
+        }
+
+        int index = 2 * sizeof(int) + 1; // add null terminator at the end
+	hexstring[index] = '\0';
+        
+
+	if(n == 0) {
+		 hexstring[index - 1] = '0';
+	} else {
+
+		while (index > 0) {     // start at the end and traverse back, perform the operation.
+        	        index--;
+               		int remainder = n % 16;
+                	if (remainder < 10) {
+                        	hexstring[index] = '0' + remainder;
+                	} else {
+                        	hexstring[index] = 'A' + (remainder - 10);
+                	}
+                	n /= 16;
+		}
+        }
+        printf("in itox, processing %s\n",hexstring);
+}
+
+
+
+
+/* Xtoi Pseudocode
+
+	while the index of hexstring is not equal to the null terminator
+		increase the length variable until we get to the null terminator
+
+			
+	while the hexxtring at index i meets all of our conditions,
+		increment i 
+		check each value and remove what is necessary
+	
+		loop through the length
+			do the reverse of the arithmetic from before in order to get the int value.		
+
+		return the xtoi value.
+*/
+
+
+
+
+
+	
+
+/* function converts hexstring array to equivalent integer value  */
+int xtoi( char hexstring[]) {
+	
+	int intConvert = 0;
+	int length = 0;
+	int i = 0;
+
+	while(hexstring[length] != '\0'){
+		length++;
+	}
+	
+	while (hexstring[i] == '0' && i < length -1) {
+		i++;
+	}
+
+	if (hexstring[i] >= '0' &&  hexstring[i] <= '9') {
+		intConvert = hexstring[i] - '0';
+	} else if (hexstring[i] >= 'A' && hexstring[i] <= 'F') {
+		intConvert = hexstring[i] - 'A' + 10;
+	} else {
+		return -1;
+	}
+
+	for (i++; i < length; i++){
+
+		char c = hexstring[i];
+		
+		if (c >= '0' && c <= '9') {
+			intConvert = intConvert * 16 + (c - '0');
+		} else if (c >= 'A' && c <= 'F') {
+			intConvert = intConvert * 16 +  (c - 'A' + 10);
+		} else {
+			return -1;
+		}
+
+	}
+	printf("in xtoi, processing %d\n", intConvert);
+	return intConvert;
+ }
+soyr@pe15:~/cs240/HW3$ cat showxbits.c
+/* 
+Sawyer Bowerman
+10/19/2023
+showxbits.c
+driver function for the rest of the xbits program.
+*/
+
+
+#include <stdio.h>
+#include "xbits.h"
+
+int main(void) {
+
+
+	char hexstring[9];
+	int num = 0;
+
+	while(scanf("%d", &num) == 1) {
+	itox(hexstring, num);
+
+	int reconverted = xtoi(hexstring);
+
+	printf("%12d %s %12d\n", num, hexstring, reconverted);
+	}
+
+
+
+
+	return 0;
+}
+soyr@pe15:~/cs240/HW3$ cat cbits.g[K[K[K[K[K[K[Kxbits.g[Kh
+/* header file for hw3 
+ *
+ *  functional prototypes for functions to study
+ *  integer-hex conversions
+ *
+ *	modified by Ron Cheung sum'05
+ */
+
+/* function returns in hexstring the char sequence of hex digits
+ * '0' ... 'F' used to represent int n. It is the caller's responsibility
+ * to have allocated at least 1+2*sizeof(int) positions in bitstring.
+ * itox must provide the concluding \0 in bitstring.
+ */
+void itox(char hexstring[], int n); /* source on right, target on left */
+
+
+
+/* function returns in integer the decimal representation of
+ * the hex characters in hexstring. The function needs to check if hexstring
+ * contains only the characters '0' ... 'F'.
+ */
+int xtoi(char hexstring[]); /* return the converted integer */ 
+
+soyr@pe15:~/cs240/HW3$ gcc -c xbits.c
+soyr@pe15:~/cs240/HW3$ gcc -xbits.[K[K[K[K[K[Kx [K[Kc shoq[Kwxbits.c
+soyr@pe15:~/cs240/HW3$ gcc xbits. [Ko showxbits.o -o xbits
+soyr@pe15:~/cs240/HW3$ ./xbits
+1
+in itox, processing 000000001
+in xtoi, processing 1
+           1 000000001            1
+555
+in itox, processing 00000022B
+in xtoi, processing 555
+         555 00000022B          555
+255
+in itox, processing 0000000FF
+in xtoi, processing 255
+         255 0000000FF          255
+^Z
+[1]+  Stopped                 ./xbits
+soyr@pe15:~/cs240/HW3$ gcc - g [K[K[Kg xbits.c showxbits.c -o xbitsDebug
+soyr@pe15:~/cs240/HW3$ gdb xbits.[KDebug
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.2-0ubuntu1~20.04.1) [m[35;1m9.2[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32mxbitsDebug[m...
+(gdb) b main
+Breakpoint 1 at [34m0x1400[m: file [32mshowxbits.c[m, line 12.
+(gdb) r
+Starting program: /courses/cs240/f23/kkfletch/soyr/HW3/xbitsDebug 
+
+Breakpoint 1, [33mmain[m () at [32mshowxbits.c[m:12
+12	int main(void) {
+(gdb) n
+16		int num = 0;
+(gdb) s
+18		while(scanf("%d", &num) == 1) {
+(gdb) n
+
+r
+29		return 0;
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /courses/cs240/f23/kkfletch/soyr/HW3/xbitsDebug 
+
+Breakpoint 1, [33mmain[m () at [32mshowxbits.c[m:12
+12	int main(void) {
+(gdb) help
+List of classes of commands:
+
+[1m[1maliases[m[m -- Aliases of other commands.
+[1m[1mbreakpoints[m[m -- Making program stop at certain points.
+[1m[1mdata[m[m -- Examining data.
+[1m[1mfiles[m[m -- Specifying and examining files.
+[1m[1minternals[m[m -- Maintenance commands.
+[1m[1mobscure[m[m -- Obscure features.
+[1m[1mrunning[m[m -- Running the program.
+[1m[1mstack[m[m -- Examining the stack.
+[1m[1mstatus[m[m -- Status inquiries.
+[1m[1msupport[m[m -- Support facilities.
+[1m[1mtracepoints[m[m -- Tracing of program execution without stopping the program.
+[1m[1muser-defined[m[m -- User-defined commands.
+
+Type "help" followed by a class name for a list of commands in that class.
+Type "help all" for the list of all commands.
+Type "help" followed by command name for full documentation.
+Type "apropos word" to search for commands related to "word".
+Type "apropos -v word" for full documentation of commands related to "word".
+Command name abbreviations are allowed if unambiguous.
+(gdb) quit[K[K[K[Kbit[K[Kt[Kt
+#0  [33mmain[m () at [32mshowxbits.c[m:12
+(gdb) p 123321
+$1 = 123321
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 3556696] will be killed.
+
+Quit anyway? (y or n) y
+soyr@pe15:~/cs240/HW3$ exit
+exit
+There are stopped jobs.
+soyr@pe15:~/cs240/HW3$ exit
+exit
+
+Script done on 2023-10-19 20:34:25-04:00 [COMMAND_EXIT_CODE="1"]

@@ -1,0 +1,78 @@
+Script started on 2023-11-14 21:32:15-05:00 [TERM="xterm" TTY="/dev/pts/7" COLUMNS="140" LINES="34"]
+soyr@pe15:~/cs240/HW4$ make clearn[K[Kn -f make[Kefile
+rm -f *.o calcit
+soyr@pe15:~/cs240/HW4$ na[K[Kmake clearn[K[Kn -f makefilw[Ke2
+make: Nothing to be done for 'clean'.
+soyr@pe15:~/cs240/HW4$ vi [K f[Kgetop.c
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;34r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[34;1H"getop.c" 47L, 804C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[33m  1 [m[34m/*[m
+[33m  2 [m[34m * getop.c[m
+[33m  3 [m[34m *[m
+[33m  4 [m[34m * gets the next token: operator or numeric operand[m
+[33m  5 [m[34m */[m
+[33m  6 
+  7 [m[35m#include [m[31m<stdio.h>[m
+[33m  8 [m[35m#include [m[31m<ctype.h>[m
+[33m  9 [m[35m#include [m[31m"calc.h"[m
+[33m 10 
+ 11 [m[32mint[m getop([32mchar[m s[])
+[33m 12 [m{
+[33m 13 [m    [32mint[m i, c;
+[33m 14 
+ 15 [m    [33mwhile[m ((s[[31m0[m] = c = getch()) == [31m' '[m || c == [35m'\t'[m)
+[33m 16 [m[8C;
+[33m 17 
+ 18 [m    s[[31m1[m] = [35m'\0'[m;
+[33m 19 
+ 20 [m    [33mif[m (!isdigit(c) && c != [31m'.'[m)
+[33m 21 [8Creturn[m c;  [34m/* not a number */[m
+[33m 22 
+ 23 [m    [34m/* collect integer part in string s */[m
+[33m 24 [m    i = [31m0[m;
+[33m 25 [m    [33mif[m (isdigit(c))
+[33m 26 [8Cwhile[m (isdigit(s[++i] = c = getch()))
+[33m 27 [m[12C;
+[33m 28 
+ 29 [m    [34m/* collect fractional part in string s */[m
+[33m 30 [m    [33mif[m (c == [31m'.'[m)
+[33m 31 [8Cwhile[m (isdigit(s[++i] = c = getch()))
+[33m 32 [m[12C;
+[33m 33 [m[34;123H1,1[11CTop[1;5H[?25h[?25l[34;123H2[2;5H[?25h[?25l[34;123H3[3;5H[?25h[?25l[34;123H4[4;5H[?25h[?25l[34;123H5[5;5H[?25h[?25l[34;123H6,0-1[6;5H[?25h[?25l[34;1H[1m-- INSERT --[m[34;13H[K[34;123H6,1[11CTop[6;5H[?25h[?25l[7;5H[K[8;15H[31mstdio[9;14H<ctype.h>[m[10;5H[35m#include [m[31m"calc.h"[m[11;5H[K[12;5H[32mint[m getop([32mchar[m s[])[13;5H{[13;9H[K[14;9H[32mint[m i, c;[15;9H[K[16;9H[33mwhile[m ((s[[31m0[m] = c = getch()) == [31m' '[m || c == [35m'\t'[m)[17;13H;[18;9H[K[19;9Hs[[31m1[m] = [35m'\0'[m;[20;9H[K[21;9H[33mif[m (!isdigit(c) && c != [31m'.'[m)[21;37H[K[22;13H[33mreturn[m c;  [34m/* not a number */[m[23;9H[K[24;9H[34m/* collect integer part in string s */[m[25;9Hi = [31m0[m;[25;15H[K[26;9H[33mif[m (isdigit(c))[26;24H[K[27;13H[33mwhile[m (isdigit(s[++i] = c = getch()))[28;17H;[29;9H[K[30;9H[34m/* collect fractional part in string s */[m[31;9H[33mif[m (c == [31m'.'[m)[31;22H[K[32;13H[33mwhile[m (isdigit(s[++i] = c = getch()))[33;17H;[34;123H7[7;5H[?25h[?25l[8;5H[K[9;15H[31mstdio[10;14H<ctype.h>[m[11;5H[35m#include [m[31m"calc.h"[m[12;5H[K[13;5H[32mint[m getop([32mchar[m s[])[14;5H{[14;9H[K[15;9H[32mint[m i, c;[16;9H[K[17;9H[33mwhile[m ((s[[31m0[m] = c = getch()) == [31m' '[m || c == [35m'\t'[m)[18;13H;[19;9H[K[20;9Hs[[31m1[m] = [35m'\0'[m;[21;9H[K[22;9H[33mif[m (!isdigit(c) && c != [31m'.'[m)[22;37H[K[23;13H[33mreturn[m c;  [34m/* not a number */[m[24;9H[K[25;9H[34m/* collect integer part in string s */[m[26;9Hi = [31m0[m;[26;15H[K[27;9H[33mif[m (isdigit(c))[27;24H[K[28;13H[33mwhile[m (isdigit(s[++i] = c = getch()))[29;17H;[30;9H[K[31;9H[34m/* collect fractional part in string s */[m[32;9H[33mif[m (c == [31m'.'[m)[32;22H[K[33;13H[33mwhile[m (isdigit(s[++i] = c = getch()))[34;123H8[8;5H[?25h[?25l[9;5H[K[10;15H[31mstdio[11;14H<ctype.h>[m[12;5H[35m#include [m[31m"calc.h"[m[13;5H[K[14;5H[32mint[m getop([32mchar[m s[])[15;5H{[15;9H[K[16;9H[32mint[m i, c;[17;9H[K[18;9H[33mwhile[m ((s[[31m0[m] = c = getch()) == [31m' '[m || c == [35m'\t'[m)[19;13H;[20;9H[K[21;9Hs[[31m1[m] = [35m'\0'[m;[22;9H[K[23;9H[33mif[m (!isdigit(c) && c != [31m'.'[m)[23;37H[K[24;13H[33mreturn[m c;  [34m/* not a number */[m[25;9H[K[26;9H[34m/* collect integer part in string s */[m[27;9Hi = [31m0[m;[27;15H[K[28;9H[33mif[m (isdigit(c))[28;24H[K[29;13H[33mwhile[m (isdigit(s[++i] = c = getch()))[30;17H;[31;9H[K[32;9H[34m/* collect fractional part in string s */[m[33;9H[33mif[m (c == [31m'.'[m)[33;22H[K[34;123H9[9;5H[?25h[?25l[34;123H8[8;5H[?25h[?25l/[34;125H2[8;6H[?25h[?25l[34m//[m[34;125H3[8;7H[?25h[?25l[34m [m[34;125H4[8;8H[?25h[?25l[34mS[m[34;125H5[8;9H[?25h[?25l[34mA[m[34;125H6[8;10H[?25h[?25l[34mW[m[34;125H7[8;11H[?25h[?25l[34mY[m[34;125H8[8;12H[?25h[?25l[34mE[m[34;125H9[8;13H[?25h[?25l[34mR[m[34;125H10[8;14H[?25h[?25l[34m [m[34;126H1[8;15H[?25h[?25l[34mB[m[34;126H2[8;16H[?25h[?25l[34mO[m[34;126H3[8;17H[?25h[?25l[34mW[m[34;126H4[8;18H[?25h[?25l[34mE[m[34;126H5[8;19H[?25h[?25l[34mR[m[34;126H6[8;20H[?25h[?25l[34mM[m[34;126H7[8;21H[?25h[?25l[34mA[m[34;126H8[8;22H[?25h[?25l[34mN[m[34;126H9[8;23H[?25h[?25l[34m [m[34;125H20[8;24H[?25h[?25l[34m:[m[34;126H1[8;25H[?25h[?25l[34m)[m[34;126H2[8;26H[?25h[34;1H[K[8;25H[?25l[34;123H8,21[10CTop[8;25H[?25h[?25l[34;123H[K[34;1H:[?2004h[?25hwq[?25l[?2004l"getop.c" 50L, 828C written[23;2t[23;1t
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0tsoyr@pe15:~/cs240/HW4$ make -f makefile 2[K[K[Ke2
+gcc -m32   -c -o main.o main.c
+gcc -m32   -c -o getch.o getch.c
+gcc -m32   -c -o getop.o getop.c
+gcc -m32   -c -o stack.o stack.c
+soyr@pe15:~/cs240/HW4$ touch calc.h
+soyr@pe15:~/cs240/HW4$ make-[K -f makefil2[Ke2
+gcc -m32   -c -o main.o main.c
+gcc -m32   -c -o getch.o getch.c
+gcc -m32   -c -o getop.o getop.c
+gcc -m32   -c -o stack.o stack.c
+soyr@pe15:~/cs240/HW4$ diff -w
+diff: missing operand after '-w'
+diff: Try 'diff --help' for more information.
+soyr@pe15:~/cs240/HW4$ diff -w makefile makefile2
+7d6
+< 	$(CC) $(CFLAGS) $^ -o $@
+10c9
+< 	$(CC) $(CFLAGS) -c $<
+---
+> 
+13c12
+< 	$(CC) $(CFLAGS) -c $<
+---
+> 
+16d14
+< 	$(CC) $(CFLAGS) -c $<
+19c17
+< 	$(CC) $(CFLAGS) -c $<
+---
+> 
+22c20
+< 	rm -f *.o calcit
+---
+> 
+soyr@pe15:~/cs240/HW4$ exot[K[Kit
+exit
+
+Script done on 2023-11-14 21:34:29-05:00 [COMMAND_EXIT_CODE="1"]

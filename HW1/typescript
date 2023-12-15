@@ -1,0 +1,33 @@
+Script started on 2023-09-25 22:12:41-04:00 [TERM="xterm" TTY="/dev/pts/81" COLUMNS="71" LINES="35"]
+soyr@pe15:~/cs240/HW1$ ls -l
+total 24
+-rwxr-xr-x 1 soyr cs240-2G 16696 Sep  7 11:55 hello
+-rw-r--r-- 1 soyr cs240-2G   185 Sep  7 11:53 hello.c
+-rw-r--r-- 1 soyr cs240-2G     0 Sep 25 22:12 typescript
+soyr@pe15:~/cs240/HW1$ cat hello.c
+
+
+/* Name: Sawyer Bowerman
+Date: 09/07/2023
+File: hello.c
+Description: This is my first program in c. */
+
+#include<stdio.h>
+
+
+int main(void) {
+	printf("Hello World!\n");
+	return 0;
+}
+
+
+soyr@pe15:~/cs240/HW1$ gcc -m32
+[01m[Kgcc:[m[K [01;31m[Kfatal error: [m[Kno input files
+compilation terminated.
+soyr@pe15:~/cs240/HW1$ gcc m[K-m32 hello.[K.c -o hello
+soyr@pe15:~/cs240/HW1$ ./ hello[K[K[K[K[K[Khello
+Hello World!
+soyr@pe15:~/cs240/HW1$ exit
+exit
+
+Script done on 2023-09-25 22:13:25-04:00 [COMMAND_EXIT_CODE="0"]
